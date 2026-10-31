@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+
+development:
+  <<: *default
+  database: level_up_development
+  username: <%= ENV.fetch("POSTGRES_USER", "levelup") %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", "levelup_local") %>
+  host: <%= ENV.fetch("POSTGRES_HOST", "127.0.0.1") %>
+  port: <%= ENV.fetch("POSTGRES_PORT", 5432) %>
+
+test:
+  <<: *default
+  database: level_up_test
+  username: <%= ENV.fetch("POSTGRES_USER", "levelup") %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD", "levelup_local") %>
+  host: <%= ENV.fetch("POSTGRES_HOST", "127.0.0.1") %>
+  port: <%= ENV.fetch("POSTGRES_PORT", 5432) %>
+
+production:
+  <<: *default
+  url: <%= ENV["DATABASE_URL"] %>

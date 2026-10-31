@@ -1,0 +1,6 @@
+import { Head, Link } from '@inertiajs/react'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Layout } from '@/components/layout'
+type Item={id:number;title:string;format:string;summary:string;owner_email:string;skills:string[];status:string}
+export default function Workspace({evidence}:{evidence:Item[]}){return <Layout><Head title="Hàng đợi review"/><main className="mx-auto max-w-4xl space-y-6 px-5 py-10"><div><h1 className="text-3xl font-semibold">Hàng đợi review</h1><p className="mt-2 text-muted-foreground">Đánh giá dựa trên tiêu chí rõ ràng, kèm nhận xét cụ thể.</p></div>{evidence.length?evidence.map(item=><Card key={item.id}><CardHeader><CardTitle>{item.title}</CardTitle><p className="text-sm text-muted-foreground">{item.owner_email} · {item.format}</p></CardHeader><CardContent><p className="text-sm">{item.summary}</p><div className="my-3 flex flex-wrap gap-2">{item.skills.map(skill=><Badge key={skill} variant="outline">{skill}</Badge>)}</div><Link className="text-sm underline" href={`/reviewer_workspace/evidence/${item.id}`}>Đánh giá bằng chứng →</Link></CardContent></Card>):<Card><CardContent className="py-12 text-center text-muted-foreground">Không có bằng chứng đang chờ.</CardContent></Card>}</main></Layout>}

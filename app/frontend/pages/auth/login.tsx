@@ -1,0 +1,9 @@
+import { Head, Link, useForm } from '@inertiajs/react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+
+export default function Login({ notice, alert }: { notice?: string; alert?: string }) {
+  const form = useForm({ email_address: '', password: '' })
+  return <><Head title="Đăng nhập"/><main className="grid min-h-screen place-items-center bg-muted/30 p-5"><form onSubmit={(event) => { event.preventDefault(); form.post('/session') }} className="w-full max-w-sm space-y-5 rounded-xl border bg-background p-7 shadow-sm"><div><p className="text-sm font-medium text-muted-foreground">LEVEL UP</p><h1 className="mt-2 text-2xl font-semibold">Đăng nhập</h1><p className="mt-1 text-sm text-muted-foreground">Tiếp tục xây dựng hồ sơ năng lực bằng bằng chứng.</p></div>{notice && <p className="text-sm text-green-700">{notice}</p>}{alert && <p className="text-sm text-destructive">{alert}</p>}<div className="space-y-2"><Label htmlFor="email">Email</Label><Input id="email" type="email" autoComplete="email" value={form.data.email_address} onChange={(e) => form.setData('email_address', e.target.value)}/>{form.errors.email_address && <p className="text-sm text-destructive">{form.errors.email_address}</p>}</div><div className="space-y-2"><Label htmlFor="password">Mật khẩu</Label><Input id="password" type="password" autoComplete="current-password" value={form.data.password} onChange={(e) => form.setData('password', e.target.value)}/>{form.errors.password && <p className="text-sm text-destructive">{form.errors.password}</p>}</div><Button className="w-full" disabled={form.processing}>Đăng nhập</Button><p className="text-center text-sm text-muted-foreground">Chưa có tài khoản? <Link className="underline" href="/registrations/new">Tạo tài khoản</Link></p></form></main></>
+}
