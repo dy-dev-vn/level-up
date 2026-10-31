@@ -2,7 +2,7 @@ class DashboardController < ApplicationController
   def index
     profile = current_user.profile
     evidence = current_user.owned_evidence.includes(:evidence_skills).order(submitted_at: :desc)
-    inbox = Evidence.joins("INNER JOIN reviewer_grants ON reviewer_grants.owner_id = evidence.owner_id")
+    inbox = Evidence.joins("INNER JOIN reviewer_grants ON reviewer_grants.owner_id = evidences.owner_id")
       .where(reviewer_grants: { reviewer_id: current_user.id, status: "accepted" }, status: %w[pending revision])
       .includes(:owner)
 

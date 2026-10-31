@@ -1,6 +1,6 @@
 class WorkExperience < ApplicationRecord
   belongs_to :profile
-  has_many :evidence, dependent: :nullify
+  has_many :evidences, dependent: :nullify
 
   validates :role, :from_month, presence: true
   validate :only_one_current_position

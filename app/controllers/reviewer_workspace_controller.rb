@@ -18,7 +18,7 @@ class ReviewerWorkspaceController < ApplicationController
   end
 
   def accessible_evidence
-    Evidence.joins("INNER JOIN reviewer_grants ON reviewer_grants.owner_id = evidence.owner_id")
+    Evidence.joins("INNER JOIN reviewer_grants ON reviewer_grants.owner_id = evidences.owner_id")
       .where(reviewer_grants: { reviewer_id: current_user.id, status: "accepted" })
       .where.not(owner_id: current_user.id)
   end

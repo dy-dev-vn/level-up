@@ -25,7 +25,7 @@ class CreateLevelupDomain < ActiveRecord::Migration[8.1]
     end
     add_check_constraint :work_experiences, "to_month IS NULL OR to_month >= from_month", name: "work_experiences_month_order"
 
-    create_table :evidence do |t|
+    create_table :evidences do |t|
       t.references :owner, null: false, foreign_key: { to_table: :users }
       t.references :work_experience, foreign_key: { on_delete: :nullify }
       t.string :title, null: false
@@ -36,9 +36,9 @@ class CreateLevelupDomain < ActiveRecord::Migration[8.1]
       t.datetime :submitted_at, null: false, default: -> { "CURRENT_TIMESTAMP" }
       t.timestamps
     end
-    add_index :evidence, [:owner_id, :submitted_at]
-    add_check_constraint :evidence, "format IN ('application', 'system_design', 'document', 'writing')", name: "evidence_format_allowed"
-    add_check_constraint :evidence, "status IN ('pending', 'revision', 'verified')", name: "evidence_status_allowed"
+    add_index :evidences, [:owner_id, :submitted_at]
+    add_check_constraint :evidences, "format IN ('application', 'system_design', 'document', 'writing')", name: "evidence_format_allowed"
+    add_check_constraint :evidences, "status IN ('pending', 'revision', 'verified')", name: "evidence_status_allowed"
 
     create_table :evidence_skills do |t|
       t.references :evidence, null: false, foreign_key: { on_delete: :cascade }
